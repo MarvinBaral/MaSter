@@ -67,7 +67,7 @@ Point* MaSter::calcCenterAdvancedROI(Mat& pic, Point start, int ROI) {
 	if (totalIntesity == 0) {
 		totalIntesity = 1;
 	}
-	Point* center = new Point(x_weigthedIntensity/totalIntesity, y_weightedIntensity/totalIntesity); //like floor(), not round() !!!
+	Point* center = new Point(nearbyint(x_weigthedIntensity*1.f/totalIntesity*1.f), nearbyint(y_weightedIntensity*1.f/totalIntesity*1.f));
 //	cout << "diff Point x:" << center->x - maxIntenseOne.x << " y:" << center->y - maxIntenseOne.y << endl;
 	return center;
 }
