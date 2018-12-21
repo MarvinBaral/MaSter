@@ -117,7 +117,7 @@ void Database::rawToTable1(double distance = 1)
 	}
 }
 
-void Database::fillTable2() //TODO: minor NaN problems
+void Database::fillTable2()
 {
 	for (int i = 0; i < rawFromfile->size(); i++) {
 		struct fileLine currentStar = rawFromfile->at(i);
@@ -128,7 +128,8 @@ void Database::fillTable2() //TODO: minor NaN problems
 		unsigned int empty = 0;
 
 		for (int j = 0; j < rawFromfile->size(); j++) {
-			if (currentStar.ID == rawFromfile->at(j).ID) {
+			struct fileLine testStar = rawFromfile->at(j);
+			if (currentStar.ID == testStar.ID || ((currentStar.ra == testStar.ra) && (currentStar.dec == testStar.dec))) {
 				//nothing
 			} else {
 				double alpha = calcAlphaInDeg(currentStar, rawFromfile->at(j));
