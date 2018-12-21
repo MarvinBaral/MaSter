@@ -174,6 +174,8 @@ tab2 Database::findBestMatch(double beta, double alpha1, double alpha2)
 {
 	double minDiff = INFINITY;
 	struct tab2 bestMatch;
+	double totalDiff = 0;
+	unsigned int ctr = 0;
 	for (int i = 0; i < table2->size(); i++) {
 		struct tab2 current = table2->at(i);
 		double diff = abs(beta - current.beta) + abs(alpha1 - current.alpha1) + abs(alpha2 - current.alpha2);
@@ -182,6 +184,8 @@ tab2 Database::findBestMatch(double beta, double alpha1, double alpha2)
 			minDiff = diff;
 //			cout << "diff: " << diff << endl;
 		}
+		ctr++;
+		totalDiff += diff;
 	}
 	for (int i = 0; i < table2->size(); i++) { //maybe alphas are swapped
 		struct tab2 current = table2->at(i);
@@ -191,8 +195,16 @@ tab2 Database::findBestMatch(double beta, double alpha1, double alpha2)
 			minDiff = diff;
 //			cout << "diff: " << diff << endl;
 		}
+		ctr++;
+		totalDiff += diff;
 	}
-	cout << "total diff of best match: " << minDiff << " deg" << endl;
+	double averageDiff = totalDiff/ctr;
+	cout << "average diff: " << averageDiff << " deg" << endl;
+	cout << "diff of best match: " << minDiff << " deg" << endl;
+	cout << "relative diff: " << minDiff/(beta+alpha1+alpha2) << endl;
+	cout << "relative diff beta: " << (bestMatch.beta - beta)/beta << endl;
+	cout << "relative diff alpha1: " << (bestMatch.alpha1 - alpha1)/alpha1 << endl;
+	cout << "relative diff alpha2: " << (bestMatch.alpha2 - alpha2)/alpha2 << endl;
 	return bestMatch;
 }
 
